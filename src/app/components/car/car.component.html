@@ -1,12 +1,33 @@
+<div class="mb-3">
+    <label for="filterText" class="form-label">Araç Ara</label>
+    <input
+      [(ngModel)]="filterText"
+      type="text"
+      class="form-control"
+      id="filterText"
+      placeholder="Ara..."
+    />
+  </div>
+  <div *ngIf="filterText.length > 2" class="alert alert-info"> <em> {{ filterText }}</em> aradınız.</div>
+  
+  <app-car-filter></app-car-filter>
 <table class="table">
-    <thead>
-        <tr>
-            <th>Brand</th>
-            <th>Color</th>
-        </tr>
-    </thead>
-    <tr *ngFor="let car of cars">
-        <td>{{ car.brandName }}</td>
-        <td>{{ car.colorName }}</td>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Brand</th>
+      <th>Color</th>
+      <th>Description</th>
+      <th></th>
     </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let car of cars | filterCar:filterText" routerLink="/cars/car-detail/{{ car.id }}">
+      <td>{{ car.id }}</td>
+      <td>{{ car.brandName }}</td>
+      <td>{{ car.colorName }}</td>
+      <td>{{ car.description }}</td>
+      <td><button class="btn btn-warning text-center">Details</button></td>
+    </tr>
+  </tbody>
 </table>

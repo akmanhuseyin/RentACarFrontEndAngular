@@ -1,6 +1,25 @@
+<div class="mb-3">
+  <label for="filterText" class="form-label">Renk Ara</label>
+  <input
+    [(ngModel)]="filterText"
+    type="text"
+    class="form-control"
+    id="filterText"
+    placeholder="Ara..."
+  />
+</div>
+<div *ngIf="filterText.length > 2" class="alert alert-info"> <em> {{ filterText }}</em> aradınız.</div>
+
 <ul class="list-group">
-    <li class="list-group-item list-group-item-success" *ngFor="let color of colors">
-      {{ color.colorName }}
-    </li>
-  </ul>
-  
+  <li (click)="setAllColor()" [class]="getAllColorClass()" routerLink="/">
+    All Colors
+  </li>
+  <li
+    routerLink="/cars/color/{{color.colorId}}"
+    (click)="setCurrentColor(color)"
+    [class]="getCurrentColorClass(color)"
+    *ngFor="let color of colors | filterColor:filterText"
+  >
+    {{ color.colorName | lowercase }}
+  </li>
+</ul>
